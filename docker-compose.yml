@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  gestion-even-stat:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: gestion-even-stat-dev
+    ports:
+      - "8080:80"
+    networks:
+      - app-network
+    environment:
+      - NODE_ENV=development
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.gestion-even-stat.rule=Host(`localhost`)"
+    restart: unless-stopped
+
+  # Service pour le backend API (si nécessaire)
+  # api:
+  #   image: node:18-alpine
+  #   container_name: gestion-even-stat-api
+  #   working_dir: /app
+  #   volumes:
+  #     - ./api:/app
+  #   ports:
+  #     - "3000:3000"
+  #   command: npm start
+  #   networks:
+  #     - app-network
+  #   environment:
+  #     - NODE_ENV=development
+  #   restart: unless-stopped
+
+  # Base de données (si nécessaire)
+  # db:
+  #   image: postgres:15-alpine
+  #   container_name: gestion-even-stat-db
+  #   environment:
+  #     POSTGRES_DB: gestion_events
+  #     POSTGRES_USER: user
+  #     POSTGRES_PASSWORD: password
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   ports:
+  #     - "5432:5432"
+  #   networks:
+  #     - app-network
+  #   restart: unless-stopped
+
+networks:
+  app-network:
+    driver: bridge
+
+# volumes:
+#   postgres_data:

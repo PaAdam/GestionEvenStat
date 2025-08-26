@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  gestion-even-stat:
+    image: ${DOCKER_USERNAME}/gestion-even-stat:${IMAGE_TAG:-latest}
+    container_name: gestion-even-stat-prod
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - app-network
+    environment:
+      - NODE_ENV=production
+    volumes:
+      # SSL certificates (si HTTPS)
+      # - ./certs:/etc/ssl/certs
+      # Logs
+      - ./logs:/var/log/nginx
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.gestion-even-stat-secure.rule=Host(`${DOMAIN:-localhost}`)"
+      - "traefik.http.routers.gestion-even-stat-secure.tls=true"
+      - "traefik.http.routers.gestion-even-stat-secure.tls.certresolver=letsencrypt"
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 256M
+          cpus: '0.25'
+
+  # Reverse proxy avec SSL (optionnel)
+  # traefik:
+  #   image: traefik:v2.10
+  #   container_name: traefik
+  #   command:
+  #     - "--api.insecure=true"
+  #     - "--providers.docker=true"
+  #     - "--providers.docker.exposedbydefault=false"
+  #     - "--entrypoints.web.address=:80"
+  #     - "--entrypoints.websecure.address=:443"
+  #     - "--certificatesresolvers.letsencrypt.acme.httpchallenge=true"
+  #     - "--certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web"
+  #     - "--certificatesresolvers.letsencrypt.acme.email=${ACME_EMAIL}"
+  #     - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #     - "8080:8080"
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock:ro
+  #     - ./letsencrypt:/letsencrypt
+  #   networks:
+  #     - app-network
+
+  # Monitoring (optionnel)
+  # watchtower:
+  #   image: containrrr/watchtower
+  #   container_name: watchtower
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #   command: --interval 300 --cleanup
+  #   restart: unless-stopped
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  logs:
