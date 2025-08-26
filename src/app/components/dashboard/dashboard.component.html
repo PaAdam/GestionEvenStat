@@ -1,0 +1,78 @@
+<div class="dashboard-container">
+  <div class="welcome-section">
+    <h1>🎉 Bienvenue dans GestionEvenStat</h1>
+    <p>Tableau de bord - Vue d'ensemble de vos événements et statistiques</p>
+  </div>
+
+  <div class="stats-grid">
+    <mat-card class="stat-card total-events">
+      <mat-card-header>
+        <mat-icon mat-card-avatar>event</mat-icon>
+        <mat-card-title>Total Événements</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="stat-number">{{ stats.totalEvents }}</div>
+        <div class="stat-description">Événements créés</div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card total-participants">
+      <mat-card-header>
+        <mat-icon mat-card-avatar>people</mat-icon>
+        <mat-card-title>Total Participants</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="stat-number">{{ stats.totalParticipants }}</div>
+        <div class="stat-description">Participants inscrits</div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card recent-events">
+      <mat-card-header>
+        <mat-icon mat-card-avatar>schedule</mat-icon>
+        <mat-card-title>Événements Récents</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="stat-number">{{ stats.recentEvents }}</div>
+        <div class="stat-description">Derniers 30 jours</div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card avg-participants">
+      <mat-card-header>
+        <mat-icon mat-card-avatar>analytics</mat-icon>
+        <mat-card-title>Moyenne</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="stat-number">{{ stats.avgParticipantsPerEvent }}</div>
+        <div class="stat-description">Participants/Événement</div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="actions-section">
+    <h2>Actions Rapides</h2>
+    <div class="action-buttons">
+      <button mat-raised-button color="primary" routerLink="/events">
+        <mat-icon>add</mat-icon>
+        Gérer les Événements
+      </button>
+      <button mat-raised-button color="accent" routerLink="/statistics">
+        <mat-icon>bar_chart</mat-icon>
+        Voir les Statistiques
+      </button>
+    </div>
+  </div>
+
+  <div class="version-info">
+    <mat-card class="version-card">
+      <mat-card-content>
+        <div class="version-details">
+          <span class="version-label">Version:</span>
+          <span class="version-value">{{ versionInfo.version }}</span>
+          <span class="build-date">Build: {{ versionInfo.buildTime }}</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

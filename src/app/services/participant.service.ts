@@ -11,6 +11,11 @@ export class ParticipantService {
 
   constructor(private http: HttpClient) {}
 
+  // Obtenir tous les participants
+  getParticipants(): Observable<Participant[]> {
+    return this.http.get<Participant[]>(this.apiUrl);
+  }
+
   // Obtenir tous les participants d'un événement
   getParticipantsByEvent(eventId: number): Observable<Participant[]> {
     return this.http.get<Participant[]>(`${this.apiUrl}?eventId=${eventId}`);

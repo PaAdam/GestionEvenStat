@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  # Angular development server
+  angular-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "4200:4200"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+    networks:
+      - app-network
+    depends_on:
+      - json-server
+    restart: unless-stopped
+
+  # JSON Server for development API
+  json-server:
+    image: node:18-alpine
+    working_dir: /app
+    volumes:
+      - ./db.json:/app/db.json
+    ports:
+      - "3000:3000"
+    command: npx json-server --watch db.json --host 0.0.0.0 --port 3000
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  # Production-like build for testing
+  angular-prod:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    networks:
+      - app-network
+    restart: unless-stopped
+    profiles:
+      - production-test
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  node_modules:

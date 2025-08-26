@@ -4,13 +4,40 @@
   align-items: center;
   justify-content: center;
   padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .event-form-card {
   margin-bottom: 20px;
+  width: 100%;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+
+  .mat-mdc-card-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 12px 12px 0 0;
+  }
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
+  
+  .mat-mdc-header-cell {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-weight: 600;
+    padding: 12px;
+  }
+
+  .mat-mdc-row:hover {
+    background-color: #f7fafc;
+  }
+
+  .mat-mdc-cell {
+    padding: 12px;
+    border-bottom: 1px solid #e2e8f0;
+  }
 }

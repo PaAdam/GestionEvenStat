@@ -17,6 +17,9 @@ import { MatCardModule } from '@angular/material/card';
 import { ParticipantListComponent } from './components/participant-list/participant-list.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { StatistiquesComponent } from './components/statistiques/statistiques.component';
+import { MatIconModule } from '@angular/material/icon';
+import { FooterComponent } from './components/footer/footer.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,8 @@ import { StatistiquesComponent } from './components/statistiques/statistiques.co
     EventListComponent,
     ParticipantListComponent,
     StatistiquesComponent,
+    FooterComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,6 +44,7 @@ import { StatistiquesComponent } from './components/statistiques/statistiques.co
     CommonModule,
     MatCardModule,
     MatSlideToggleModule,
+    MatIconModule,
 
   ],
   providers: [],

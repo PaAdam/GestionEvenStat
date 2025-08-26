@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  # Angular production application
+  angular-app:
+    image: paadam/gestion-even-stat:latest
+    ports:
+      - "80:80"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - app-network
+    restart: unless-stopped
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.1'
+          memory: 128M
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Reverse proxy and load balancer
+  nginx-proxy:
+    image: nginx:alpine
+    ports:
+      - "443:443"
+    volumes:
+      - ./nginx-proxy.conf:/etc/nginx/nginx.conf:ro
+      # Uncomment for SSL certificates
+      # - ./ssl:/etc/nginx/ssl:ro
+    networks:
+      - app-network
+    depends_on:
+      - angular-app
+    restart: unless-stopped
+    profiles:
+      - with-proxy
+
+  # Optional: JSON Server for production (if needed)
+  json-server-prod:
+    image: node:18-alpine
+    working_dir: /app
+    volumes:
+      - ./db.json:/app/db.json:ro
+    ports:
+      - "3000:3000"
+    command: npx json-server --watch db.json --host 0.0.0.0 --port 3000 --read-only
+    networks:
+      - app-network
+    restart: unless-stopped
+    profiles:
+      - with-api
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 256M
+
+networks:
+  app-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

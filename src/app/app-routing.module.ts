@@ -1,10 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EventListComponent } from './components/event-list/event-list.component';
+import { StatistiquesComponent } from './components/statistiques/statistiques.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 const routes: Routes = [
-  { path: 'events', component: EventListComponent },  // Ajout de la route pour le composant
-  { path: '', redirectTo: '/events', pathMatch: 'full' },  // Redirection vers /events par défaut
+  { path: '', component: DashboardComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'events', component: EventListComponent },
+  { path: 'statistics', component: StatistiquesComponent },
 ];
 
 @NgModule({

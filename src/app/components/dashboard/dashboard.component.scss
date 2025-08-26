@@ -1,0 +1,139 @@
+.dashboard-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.welcome-section {
+  text-align: center;
+  margin-bottom: 3rem;
+
+  h1 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  p {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+  }
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.stat-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  mat-card-header mat-icon[mat-card-avatar] {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    line-height: 40px;
+    border-radius: 50%;
+    color: white;
+  }
+
+  .stat-number {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-description {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+  }
+
+  // Couleurs spécifiques par type de carte
+  &.total-events {
+    mat-card-header mat-icon { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    .stat-number { color: #667eea; }
+  }
+
+  &.total-participants {
+    mat-card-header mat-icon { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+    .stat-number { color: #f5576c; }
+  }
+
+  &.recent-events {
+    mat-card-header mat-icon { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+    .stat-number { color: #4facfe; }
+  }
+
+  &.avg-participants {
+    mat-card-header mat-icon { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+    .stat-number { color: #43e97b; }
+  }
+}
+
+.actions-section {
+  text-align: center;
+  margin-bottom: 3rem;
+
+  h2 {
+    color: #2c3e50;
+    margin-bottom: 2rem;
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    button {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 2rem;
+      border-radius: 25px;
+      transition: transform 0.3s ease;
+
+      &:hover { transform: translateY(-3px); }
+    }
+  }
+}
+
+.version-info .version-card {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+
+  .version-details {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.9rem;
+
+    .version-value {
+      background: #007bff;
+      color: white;
+      padding: 0.2rem 0.8rem;
+      border-radius: 15px;
+      font-weight: 600;
+    }
+
+    .build-date {
+      color: #6c757d;
+      margin-left: auto;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-container { padding: 1rem; }
+  .stats-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .action-buttons button { width: 250px; }
+  .version-details { flex-direction: column; align-items: flex-start !important; }
+}
