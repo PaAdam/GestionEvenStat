@@ -1,0 +1,54 @@
+{
+  "events": [
+    {
+      "name": "ada",
+      "date": "2025-04-04",
+      "location": "dk",
+      "description": "indépendance",
+      "organizer": "etat",
+      "id": "2053"
+    },
+    {
+      "id": "827c",
+      "name": "ada",
+      "date": "2025-12-12",
+      "location": "dk",
+      "description": "test",
+      "organizer": "test"
+    }
+  ],
+  "participants": [
+    {
+      "id": "1",
+      "eventId": null,
+      "name": "Alice Dupont",
+      "email": "alice@example.com",
+      "phone": "0123456789",
+      "presence": true
+    },
+    {
+      "id": "2",
+      "eventId": null,
+      "name": "Jean Martin",
+      "email": "jean@example.com",
+      "phone": "0987654321",
+      "presence": false
+    },
+    {
+      "id": "0",
+      "name": "c",
+      "email": "dv@g",
+      "phone": "259",
+      "presence": false,
+      "eventId": "2053"
+    },
+    {
+      "id": 0,
+      "name": "test",
+      "email": "asmy@finlex.sn",
+      "phone": "57575",
+      "presence": false,
+      "eventId": "827c"
+    }
+  ]
+}

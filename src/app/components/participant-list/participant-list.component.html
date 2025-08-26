@@ -1,0 +1,72 @@
+<mat-card class="participant-card">
+  <h3>Liste des participants</h3>
+
+  <!-- Formulaire d'ajout de participant -->
+  <form (submit)="addParticipant()">
+    <mat-form-field>
+      <mat-label>Nom</mat-label>
+      <input matInput [(ngModel)]="newParticipant.name" name="name" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput type="email" [(ngModel)]="newParticipant.email" name="email" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Téléphone</mat-label>
+      <input matInput type="tel" [(ngModel)]="newParticipant.phone" name="phone" required>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Ajouter</button>
+  </form>
+
+  <!-- Tableau des participants -->
+  <table mat-table [dataSource]="participants" class="mat-elevation-z8">
+    
+    <!-- Nom -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Nom </th>
+      <td mat-cell *matCellDef="let participant"> {{ participant.name }} </td>
+    </ng-container>
+
+    <!-- Email -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef> Email </th>
+      <td mat-cell *matCellDef="let participant"> {{ participant.email }} </td>
+    </ng-container>
+
+    <!-- Téléphone -->
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef> Téléphone </th>
+      <td mat-cell *matCellDef="let participant"> {{ participant.phone }} </td>
+    </ng-container>
+
+    <!-- Présence -->
+    <ng-container matColumnDef="presence">
+      <th mat-header-cell *matHeaderCellDef> Présence </th>
+      <td mat-cell *matCellDef="let participant">
+        <mat-slide-toggle 
+          [checked]="participant.presence" 
+          (change)="togglePresence(participant)">
+        </mat-slide-toggle>
+      </td>
+    </ng-container>
+
+    <!-- Actions -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let participant">
+        <button mat-button color="warn" (click)="deleteParticipant(participant.id)">
+          Supprimer
+        </button>
+      </td>
+    </ng-container>
+
+    <!-- En-têtes -->
+    <tr mat-header-row *matHeaderRowDef="['name', 'email', 'phone', 'presence', 'actions']"></tr>
+    <!-- Lignes -->
+    <tr mat-row *matRowDef="let row; columns: ['name', 'email', 'phone', 'presence', 'actions'];"></tr>
+
+  </table>
+</mat-card>
