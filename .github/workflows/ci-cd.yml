@@ -39,7 +39,7 @@ jobs:
       continue-on-error: true
       
     - name: Build application
-      run: npm run build
+      run: npm run build:prod
       
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
@@ -106,10 +106,18 @@ jobs:
         
     - name: Test Docker image
       run: |
+        echo "🧪 Testing Docker image..."
         docker run --rm -d --name test-container -p 8080:80 ${{ env.DOCKER_IMAGE }}:latest
-        sleep 10
+        sleep 15
         curl -f http://localhost:8080/health || exit 1
+        echo "✅ Docker image test passed!"
         docker stop test-container
+        
+    - name: Clean up test container
+      if: always()
+      run: |
+        docker stop test-container 2>/dev/null || true
+        docker rm test-container 2>/dev/null || true
 
   # Deploy to staging
   deploy-staging:
