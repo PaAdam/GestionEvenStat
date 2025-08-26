@@ -5,7 +5,7 @@ import { Participant } from '../../models/participant';
 @Component({
   selector: 'app-participant-list',
   templateUrl: './participant-list.component.html',
-  styleUrls: ['./participant-list.component.css']
+  styleUrls: ['./participant-list.component.scss']
 })
 export class ParticipantListComponent implements OnInit {
   @Input() eventId!: number;

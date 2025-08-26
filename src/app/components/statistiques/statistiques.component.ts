@@ -5,7 +5,7 @@ import { EventService } from 'src/app/services/event.service';
 @Component({
   selector: 'app-statistiques',
   templateUrl: './statistiques.component.html',
-  // styleUrls: ['./statistiques.component.css']  // Si tu n'as pas de CSS, supprime cette ligne
+  styleUrls: ['./statistiques.component.scss']
 })
 export class StatistiquesComponent implements OnInit, AfterViewInit {
   @ViewChild('barCanvas') barCanvas!: ElementRef;
